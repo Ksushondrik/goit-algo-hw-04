@@ -34,8 +34,33 @@ def get_cats_info(path):
         print(f"Error: {e}")
     return cats_info
 
-total, average = total_salary("documents/monthly_salary.txt")
-print(f"Загальна сума заробітної плати: {total}, Середня заробітна плата: {average:.0f}")
+def parse_input(user_input):
+    cmd, *args = user_input.split()
+    cmd = cmd.strip().lower()
+    return cmd, *args
 
-cats_info = get_cats_info("documents/cats_ident.txt")
-print(cats_info)
+def add_contact(args, contacts):
+    name, phone = args
+    contacts[name] = phone
+    return "Contact added."
+
+def change_contact (args, contacts):
+    name, phone = args
+    contacts[name] = phone
+    return "Contact updated."
+
+def show_phone (args, contacts):
+    name = args[0]
+    return f"Pfone {name}: {contacts[name]}"
+
+def show_all (contacts):
+    for key, value in contacts.items():
+        print(f"{key}: {value}")
+    return "These are all contacts"
+
+if __name__ == "__main__":
+    total, average = total_salary("documents/monthly_salary.txt")
+    print(f"Загальна сума заробітної плати: {total}, Середня заробітна плата: {average:.0f}")
+
+    cats_info = get_cats_info("documents/cats_ident.txt")
+    print(cats_info)
