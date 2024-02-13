@@ -1,4 +1,5 @@
 import re
+import decor
 
 def total_salary(path): # Перше завдання
     n = 0
@@ -39,6 +40,7 @@ def parse_input(user_input):
     cmd = cmd.strip().lower()
     return cmd, *args
 
+@decor.input_error
 def add_contact(args, contacts):
     name, phone = args
     contacts[name] = phone
