@@ -1,5 +1,5 @@
 import re
-import decor
+import decor as de
 
 def total_salary(path): # Перше завдання
     n = 0
@@ -40,25 +40,38 @@ def parse_input(user_input):
     cmd = cmd.strip().lower()
     return cmd, *args
 
-@decor.input_error
+@de.input_error
 def add_contact(args, contacts):
     name, phone = args
     contacts[name] = phone
     return "Contact added."
 
+@de.input_error
 def change_contact (args, contacts):
-    name, phone = args
-    contacts[name] = phone
-    return "Contact updated."
+    if args[0] in contacts.keys() :
+        name, phone = args
+        contacts[name] = phone
+        return "Contact updated."
+    else:
+        raise Exception("Not found!")
 
+@de.input_error
 def show_phone (args, contacts):
     name = args[0]
-    return f"Pfone {name}: {contacts[name]}"
+    if name in contacts.keys() :
+        return f"Pfone {name}: {contacts[name]}"
+    else:
+        raise Exception("Not found!")
 
+@de.input_error
 def show_all (contacts):
-    for key, value in contacts.items():
-        print(f"{key}: {value}")
-    return "These are all contacts"
+    if bool(contacts) :
+        for key, value in contacts.items():
+            print(f"{key:10}: {value:10}")
+    else:
+        raise Exception("No mach to show!")    
+
+
 
 if __name__ == "__main__":
     total, average = total_salary("documents/monthly_salary.txt")
